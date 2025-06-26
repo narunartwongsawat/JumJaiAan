@@ -14,7 +14,14 @@ This project is a LINE chatbot that uses the Gemini AI to summarize content from
 3.  **Create a new project in [Google Apps Script](https://script.google.com/).**
 4.  **Get a Gemini API Key** from [Google AI Studio](https://aistudio.google.com/app/apikey).
 5.  **Copy the code from the `Code.gs` file in this repository into your Google Apps Script project.**
-6.  **In the `Code.gs` file, replace the placeholder values for `CHANNEL_ACCESS_TOKEN` and `GEMINI_API_KEY` with your actual credentials.**
+6.  **Set up Script Properties for your secrets:**
+    *   In the Google Apps Script editor, go to **File > Project Properties**.
+    *   Select the **Script Properties** tab.
+    *   Click **Add script property**.
+    *   Add the following two properties, pasting your secret values:
+        *   **Name:** `CHANNEL_ACCESS_TOKEN`, **Value:** *Your-LINE-Channel-Access-Token*
+        *   **Name:** `GEMINI_API_KEY`, **Value:** *Your-Gemini-API-Key*
+    *   Click **Save script properties**. This is more secure than pasting secrets directly into the code.
 7.  **Deploy your Google Apps Script project as a web app.**
 8.  **Copy the web app URL provided after deployment.**
 9.  **In the LINE Developers Console, set the Webhook URL for your channel to the URL of your deployed Google Apps Script web app.**

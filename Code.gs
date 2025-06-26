@@ -1,5 +1,5 @@
-const CHANNEL_ACCESS_TOKEN = 'YOUR_CHANNEL_ACCESS_TOKEN';
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY';
+const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
+const GEMINI_API_KEY = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
 
 function doPost(e) {
   const event = JSON.parse(e.postData.contents).events[0];
@@ -68,4 +68,29 @@ function replyMessage(replyToken, message) {
   };
 
   UrlFetchApp.fetch(url, options);
+}
+
+// =========== TEST FUNCTION =============
+// Use this function to test your summarization logic directly.
+function testUrlSummarization() {
+  // 1. Put a URL you want to test here.
+  const testUrl = "https://en.wikipedia.org/wiki/Artificial_intelligence";
+
+  try {
+    // 2. Fetch the content from the URL.
+    Logger.log(`Fetching content from: ${testUrl}`);
+    const content = UrlFetchApp.fetch(testUrl).getContentText();
+    Logger.log("Content fetched successfully.");
+
+    // 3. Call the summarize function.
+    Logger.log("Sending content to Gemini for summarization...");
+    const summary = summarize(content);
+
+    // 4. Print the summary to the logs.
+    Logger.log("--- SUMMARY RESULT ---");
+    Logger.log(summary);
+
+  } catch (e) {
+    Logger.log(`An error occurred: ${e.toString()}`);
+  }
 }
