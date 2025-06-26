@@ -5,7 +5,7 @@ This project is a LINE chatbot that uses the Gemini AI to summarize content from
 ## Features
 
 - Summarizes the content of a URL provided in a LINE message.
-- If the content is not in Thai or English, it provides the summary in both Thai and English.
+- Provides the summary in Thai, using bullet points.
 
 ## Setup
 
