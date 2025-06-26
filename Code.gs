@@ -52,7 +52,7 @@ function summarize(text) {
       {
         parts: [
           {
-            text: `Summarize the content of the following webpage. If the content is not in Thai or English, provide the summary in both Thai and English:\n\n${plainText}`,
+            text: `Summarize the content of the following webpage in Thai, using bullet points: ${plainText}`,
           },
         ],
       },
@@ -71,7 +71,6 @@ function summarize(text) {
     const response = UrlFetchApp.fetch(url, options);
     const responseCode = response.getResponseCode();
     const responseBody = response.getContentText();
-    Logger.log(`Gemini API Raw Response: Status Code - ${responseCode}, Body - ${responseBody}`);
 
     if (responseCode !== 200) {
       Logger.log(`Gemini API Error: Status Code - ${responseCode}, Response Body - ${responseBody}`);
