@@ -88,6 +88,7 @@ function summarize(text) {
     }
   } catch (e) {
     return `เกิดข้อผิดพลาดที่ไม่คาดคิดขณะพยายามสรุป: ${e.toString()}`;
+  }
 }
 
 function replyMessage(replyToken, message) {

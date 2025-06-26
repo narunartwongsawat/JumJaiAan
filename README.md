@@ -7,6 +7,10 @@ This project is a LINE chatbot that uses the Gemini AI to summarize content from
 - Summarizes the content of a URL provided in a LINE message.
 - Provides the summary in Thai, using bullet points.
 
+## Try the Bot!
+
+You can try out this bot by adding the LINE account `@591ugjhx`. Once added, send a link in the chat with the bot to get a summary.
+
 ## Setup
 
 1.  **Create a LINE Official Account (OA) and a channel in the [LINE Developers Console](https://developers.line.biz/en/).**
