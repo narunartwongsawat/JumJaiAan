@@ -14,7 +14,7 @@ function doPost(e) {
   const urls = message.match(urlRegex);
 
   if (!urls) {
-    replyMessage(replyToken, "I couldn't find a link in your message. Please send me a valid URL to summarize.");
+    replyMessage(replyToken, "ไม่พบลิงก์ในข้อความของคุณ กรุณาส่ง URL ที่ถูกต้องเพื่อสรุป");
     return;
   }
 
@@ -25,12 +25,12 @@ function doPost(e) {
     // Fetch content with error handling for the URL itself
     const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
     if (response.getResponseCode() !== 200) {
-      replyMessage(replyToken, `Sorry, I couldn't access that link. It might be broken or private. (Error code: ${response.getResponseCode()})`);
+      replyMessage(replyToken, `ขออภัย ไม่สามารถเข้าถึงลิงก์นั้นได้ อาจเป็นลิงก์เสียหรือไม่เป็นสาธารณะ (รหัสข้อผิดพลาด: ${response.getResponseCode()})`);
       return;
     }
     content = response.getContentText();
   } catch (err) {
-    replyMessage(replyToken, "Sorry, I had trouble connecting to that URL. Please check the link and try again.");
+    replyMessage(replyToken, "ขออภัย มีปัญหาในการเชื่อมต่อกับ URL นั้น กรุณาตรวจสอบลิงก์แล้วลองอีกครั้ง");
     return;
   }
 
@@ -75,20 +75,19 @@ function summarize(text) {
     if (responseCode !== 200) {
       Logger.log(`Gemini API Error: Status Code - ${responseCode}, Response Body - ${responseBody}`);
       if (responseCode === 429) {
-        return "I'm a bit busy right now! Please wait a minute before sending another request.";
+        return "ฉันค่อนข้างยุ่งอยู่ตอนนี้! โปรดรอสักครู่ก่อนส่งคำขออีกครั้ง";
       }
-      return `Sorry, I couldn't get a summary. There was an issue with the AI service (Error ${responseCode}). Please try again later.`;
+      return `ขออภัย ไม่สามารถสรุปได้ มีปัญหาเกี่ยวกับบริการ AI (ข้อผิดพลาด ${responseCode}) โปรดลองอีกครั้งในภายหลัง`;
     }
 
     const data = JSON.parse(responseBody);
     if (data.candidates && data.candidates.length > 0) {
       return data.candidates[0].content.parts[0].text;
     } else {
-      return "Sorry, I received an unexpected response from the AI. I couldn't generate a summary.";
+      return "ขออภัย ได้รับการตอบกลับที่ไม่คาดคิดจาก AI ไม่สามารถสร้างสรุปได้";
     }
   } catch (e) {
-    return `An unexpected error occurred while trying to get the summary: ${e.toString()}`;
-  }
+    return `เกิดข้อผิดพลาดที่ไม่คาดคิดขณะพยายามสรุป: ${e.toString()}`;
 }
 
 function replyMessage(replyToken, message) {
