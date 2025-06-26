@@ -11,6 +11,10 @@ This project is a LINE chatbot that uses the Gemini AI to summarize content from
 
 You can try out this bot by adding the LINE account `@591ugjhx`. Once added, send a link in the chat with the bot to get a summary.
 
+## Known Issues
+
+-   **Dynamic Websites (e.g., Facebook):** The bot may not be able to summarize content from highly dynamic websites where the main content is loaded via JavaScript after the initial page load. This is because Google Apps Script's `UrlFetchApp` only retrieves the initial HTML and does not execute JavaScript.
+
 ## Setup
 
 1.  **Create a LINE Official Account (OA) and a channel in the [LINE Developers Console](https://developers.line.biz/en/).**
