@@ -1,0 +1,16 @@
+{
+  "name": "jumjaiaan",
+  "version": "1.0.0",
+  "description": "This project is a LINE chatbot that uses the Gemini AI to summarize content from a given URL. It can also translate the summary into Thai.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gemini": "gemini"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  }
+}
