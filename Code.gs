@@ -40,19 +40,25 @@ function doPost(e) {
   replyMessage(replyToken, summaryResult);
 }
 
+function stripHtmlTags(html) {
+  return html.replace(/<[^>]*>/g, '');
+}
+
 function summarize(text) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+  const plainText = stripHtmlTags(text);
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
   const payload = {
     contents: [
       {
         parts: [
           {
-            text: `Summarize the following text. If the text is not in Thai or English, provide the summary in both Thai and English:\n\n${text}`,
+            text: `Summarize the content of the following webpage. If the content is not in Thai or English, provide the summary in both Thai and English:\n\n${plainText}`,
           },
         ],
       },
     ],
   };
+
 
   const options = {
     method: 'post',
@@ -65,12 +71,13 @@ function summarize(text) {
     const response = UrlFetchApp.fetch(url, options);
     const responseCode = response.getResponseCode();
     const responseBody = response.getContentText();
-
-    if (responseCode === 429) {
-      return "I'm a bit busy right now! Please wait a minute before sending another request.";
-    }
+    Logger.log(`Gemini API Raw Response: Status Code - ${responseCode}, Body - ${responseBody}`);
 
     if (responseCode !== 200) {
+      Logger.log(`Gemini API Error: Status Code - ${responseCode}, Response Body - ${responseBody}`);
+      if (responseCode === 429) {
+        return "I'm a bit busy right now! Please wait a minute before sending another request.";
+      }
       return `Sorry, I couldn't get a summary. There was an issue with the AI service (Error ${responseCode}). Please try again later.`;
     }
 
